@@ -1,0 +1,1 @@
+import { $parse } from 'tiny-ng';

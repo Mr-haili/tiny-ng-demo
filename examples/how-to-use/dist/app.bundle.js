@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 94);
+/******/ 	return __webpack_require__(__webpack_require__.s = 96);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -79,137 +79,93 @@ Object.defineProperty(t,"__esModule",{value:!0}),t.ANNOTATIONS="__annotations__"
 
 /***/ }),
 
-/***/ 53:
+/***/ 100:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var Todo = /** @class */ (function () {
-    function Todo(title) {
-        this.completed = false;
-        this.editing = false;
-        this.title = title.trim();
-    }
-    Object.defineProperty(Todo.prototype, "title", {
-        get: function () {
-            return this._title;
-        },
-        set: function (value) {
-            if (!value)
-                value = '';
-            this._title = value.trim();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Todo;
-}());
-exports.Todo = Todo;
-var TodoStore = /** @class */ (function () {
-    function TodoStore() {
-        this.visibility = 'all';
-        this.filters = {
-            all: function (todos) {
-                return todos;
-            },
-            active: function (todos) {
-                return todos.filter(function (todo) {
-                    return !todo.completed;
-                });
-            },
-            completed: function (todos) {
-                return todos.filter(function (todo) {
-                    return todo.completed;
-                });
-            }
-        };
-        var persistedTodos = JSON.parse(localStorage.getItem('angular2-todos') || '[]');
-        // Normalize back into classes
-        this.todos = persistedTodos.map(function (todo) {
-            var ret = new Todo(todo._title);
-            ret.completed = todo.completed;
-            return ret;
-        });
-    }
-    TodoStore.prototype.updateStore = function () {
-        localStorage.setItem('angular2-todos', JSON.stringify(this.todos));
-    };
-    TodoStore.prototype.getWithCompleted = function (completed) {
-        return this.todos.filter(function (todo) { return todo.completed === completed; });
-    };
-    Object.defineProperty(TodoStore.prototype, "filteredTodos", {
-        get: function () {
-            return this.filters[this.visibility](this.todos);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TodoStore.prototype.setVisibility = function (visibility) {
-        this.visibility = visibility;
-    };
-    TodoStore.prototype.allCompleted = function () {
-        return this.todos.length === this.getCompleted().length;
-    };
-    TodoStore.prototype.setAllTo = function (completed) {
-        this.todos.forEach(function (t) { return t.completed = completed; });
-        this.updateStore();
-    };
-    TodoStore.prototype.removeCompleted = function () {
-        this.todos = this.getWithCompleted(false);
-        this.updateStore();
-    };
-    TodoStore.prototype.getRemaining = function () {
-        return this.getWithCompleted(false);
-    };
-    TodoStore.prototype.getCompleted = function () {
-        return this.getWithCompleted(true);
-    };
-    TodoStore.prototype.toggleCompletion = function (todo) {
-        todo.completed = !todo.completed;
-        this.updateStore();
-    };
-    TodoStore.prototype.remove = function (todo) {
-        this.todos.splice(this.todos.indexOf(todo), 1);
-        this.updateStore();
-    };
-    TodoStore.prototype.add = function (title) {
-        this.todos.push(new Todo(title));
-        this.updateStore();
-    };
-    TodoStore.prototype.sort = function () {
-        this.todos.sort(function (todo1, todo2) { return todo1.title > todo2.title ? 1 : -1; });
-    };
-    return TodoStore;
-}());
-exports.TodoStore = TodoStore;
-
-
-/***/ }),
-
-/***/ 94:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var tiny_ng_1 = __webpack_require__(0);
-var todo_app_component_1 = __webpack_require__(95);
-var store_1 = __webpack_require__(53);
-var moduleConfig = {
-    declarations: [
-        todo_app_component_1.TodoAppComponent
-    ],
-    providers: [store_1.TodoStore],
-    entry: 'todo-app'
-};
-var appModule = new tiny_ng_1.Module(moduleConfig);
-tiny_ng_1.bootstrap(appModule);
+var ClickCounterComponent = /** @class */ (function () {
+    function ClickCounterComponent() {
+        this.count = 0;
+    }
+    ClickCounterComponent.prototype.addCount = function () {
+        this.count += 1;
+    };
+    ClickCounterComponent.prototype.resetCount = function () {
+        this.count = 0;
+    };
+    ClickCounterComponent.prototype.isClickTooManyTimes = function () {
+        return this.count >= 3;
+    };
+    ClickCounterComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'click-counter',
+            template: "\n\t\t<div>You've clicked {{ count }} times</div>\n\t\t\t{{ isClickTooManyTimes() }}\n\t\t<button\n\t\t\t(click)=\"addCount()\"\n\t\t\t[disabled]=\"isClickTooManyTimes()\">\n\t\t\tClick me\n\t\t</button> \n\t\t<div [visible]=\"isClickTooManyTimes\">\n\t    That's too many clicks! Please stop before you wear out your fingers.\n\t    <button (click)=\"resetCount()\">Reset clicks</button>\n\t\t</div>\n\t"
+        })
+    ], ClickCounterComponent);
+    return ClickCounterComponent;
+}());
+exports.ClickCounterComponent = ClickCounterComponent;
 
 
 /***/ }),
 
-/***/ 95:
+/***/ 101:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+;
+var ListComponent = /** @class */ (function () {
+    function ListComponent() {
+        this.newItem = { text: '' };
+        this.items = [
+            { text: 'tiny-ng' },
+            { text: 'just for fun' }
+        ];
+    }
+    ListComponent.prototype.addItem = function () {
+        var item = this.newItem;
+        this.items.push(item);
+        this.newItem = { text: '' };
+    };
+    ListComponent.prototype.removeItem = function (item) {
+        var index = this.items.indexOf(item);
+        this.items.splice(index, 1);
+    };
+    ListComponent.prototype.sort = function () {
+        this.items.sort(function (itemA, itemB) { return itemA.text > itemB.text ? 1 : -1; });
+    };
+    ListComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'list',
+            template: "\n\t\t<div>\n\t\t\tAdd item: <input type=\"text\" [(ng-model)]=\"newItem.text\" />\n\t\t\t<button type=\"submit\" [disabled]=\"!newItem || !newItem.text.length\" (click)=\"addItem()\">\n\t\t\t\tAdd\n\t\t\t</button>\n\t\t</div>\n\t\t<p>Your values:</p>\n\t\t<ul>\n\t\t\t<li\n\t\t\t\t*ng-for=\"let item of items\"\n\t\t\t\t(click)=\"selectedItem = item\">\n\t\t\t\t{{ item.text }}\n\t\t\t\t<button (click)=\"removeItem(item)\">x</button>\n\t\t\t</li>\n\t\t</ul>\n\t\t \n\t\t<div>\n\t\t\t<button (click)=\"sort()\" [enable]=\"items.length > 1\">Sort</button>\n\t\t</div>\n\t"
+        })
+    ], ListComponent);
+    return ListComponent;
+}());
+exports.ListComponent = ListComponent;
+
+
+/***/ }),
+
+/***/ 102:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -225,72 +181,143 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var tiny_ng_1 = __webpack_require__(0);
-var store_1 = __webpack_require__(53);
-var TodoAppComponent = /** @class */ (function () {
-    function TodoAppComponent(todoStore) {
-        this.newTodoText = '';
-        this.todoStore = todoStore;
+var tpl;
+tpl = __webpack_require__(103);
+tpl = tpl.replace('{{', '&#123;<span></span>&#123;').replace('}}', '&#125;&#125;');
+var HowToUseComponent = /** @class */ (function () {
+    function HowToUseComponent() {
     }
-    TodoAppComponent.prototype.stopEditing = function (todo, editedTitle) {
-        if (!todo.editing)
-            return;
-        todo.title = editedTitle;
-        todo.editing = false;
-    };
-    // 暂时不支持keyup.xxx的语法糖, 先苟且了
-    // keyup enter escape
-    TodoAppComponent.prototype.updateOrCancelEditingTodo = function ($event, todo) {
-        var keyCode = $event.keyCode;
-        var editedTitle = $event.target.value;
-        if (13 === keyCode) {
-            this.updateEditingTodo(todo, editedTitle);
-        }
-        else if (27 === keyCode) {
-            this.cancelEditingTodo(todo);
-        }
-    };
-    TodoAppComponent.prototype.updateEditingTodo = function (todo, editedTitle) {
-        editedTitle = editedTitle.trim();
-        todo.editing = false;
-        if (editedTitle.length === 0) {
-            return this.todoStore.remove(todo);
-        }
-        todo.title = editedTitle;
-    };
-    TodoAppComponent.prototype.cancelEditingTodo = function (todo) {
-        todo.editing = false;
-    };
-    TodoAppComponent.prototype.editTodo = function (todo) {
-        todo.editing = true;
-    };
-    TodoAppComponent.prototype.removeCompleted = function () {
-        this.todoStore.removeCompleted();
-    };
-    TodoAppComponent.prototype.toggleCompletion = function (todo) {
-        this.todoStore.toggleCompletion(todo);
-    };
-    TodoAppComponent.prototype.remove = function (todo) {
-        this.todoStore.remove(todo);
-    };
-    TodoAppComponent.prototype.addTodo = function ($event) {
-        var code = $event.charCode || $event.keyCode;
-        if (13 !== code)
-            return;
-        if (this.newTodoText.trim().length) {
-            this.todoStore.add(this.newTodoText);
-            this.newTodoText = '';
-        }
-    };
-    TodoAppComponent = __decorate([
+    HowToUseComponent = __decorate([
         tiny_ng_1.Component({
-            selector: 'todo-app',
-            template: "\n\t\t<section class=\"todoapp\">\n\t\t\t<header class=\"header\">\n\t\t\t\t<h1>todos</h1>\n\t\t\t\t<input \n\t\t\t\t\tclass=\"new-todo\" \n\t\t\t\t\tplaceholder=\"What needs to be done?\" \n\t\t\t\t\tautofocus=\"\"\n\t\t\t\t\t[(ng-model)]=\"newTodoText\" \n\t\t\t\t\t(keyup)=\"addTodo($event)\">\n\t\t\t</header>\n\n\t\t\t<section class=\"main\" *ng-if=\"todoStore.filteredTodos.length > 0\">\n\t\n\t\t\t\t<input\n\t\t\t\t\tclass=\"toggle-all\"\n\t\t\t\t\ttype=\"checkbox\"\n\t\t\t\t\t#toggleall\n\t\t\t\t\t*ng-if=\"todoStore.todos.length\"\n\t\t\t\t\t[checked]=\"todoStore.allCompleted()\"\n\t\t\t\t\t(click)=\"todoStore.setAllTo(toggleall.checked)\">\n\n\t\t\t\t<ul class=\"todo-list\">\n\t\t\t\t\t<li\n\t\t\t\t\t\t[ng-class]=\"{ editing: todo.editing, completed: todo.completed }\"\n\t\t\t\t\t\t*ng-for=\"let todo of todoStore.filteredTodos\">\n\n\t\t\t\t\t\t<div class=\"view\">\n\t\t\t\t\t\t\t<input\n\t\t\t\t\t\t\t\tclass=\"toggle\"\n\t\t\t\t\t\t\t\ttype=\"checkbox\"\n\t\t\t\t\t\t\t\t(click)=\"toggleCompletion(todo)\"\n\t\t\t\t\t\t\t\t[checked]=\"todo.completed\">\n\t\t\t\t\t\t\t<label (dblclick)=\"editTodo(todo)\">{{ todo.title }}</label>\n\t\t\t\t\t\t\t<button class=\"destroy\" (click)=\"remove(todo)\"></button>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<input \n\t\t\t\t\t\t\tclass=\"edit\"\n\t\t\t\t\t\t\t*ng-if=\"todo.editing\"\n\t\t\t\t\t\t\t[value]=\"todo.title\"\n\t\t\t\t\t\t\t(keyup)=\"updateOrCancelEditingTodo($event, todo)\"\n\t\t\t\t\t\t\t(blur)=\"stopEditing(todo, $event.target.value)\">\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</section>\n\n\t\t\t<footer class=\"footer\" *ng-if=\"todoStore.todos.length > 0\">\n\t\t\t\t<span class=\"todo-count\">\n\t\t\t\t\t<strong>{{todoStore.getRemaining().length}}</strong> \n\t\t\t\t\t{{todoStore.getRemaining().length == 1 ? 'item' : 'items'}} left\n\t\t\t\t</span>\n\n\t\t\t\t<ul class=\"filters\">\n\t\t\t\t\t<li><a (click)=\"todoStore.setVisibility('all')\" [ng-class]=\"{ selected: todoStore.visibility == 'all' }\">All</a></li>\n\t\t\t\t\t<li><a (click)=\"todoStore.setVisibility('active')\" [ng-class]=\"{ selected: todoStore.visibility == 'active' }\">Active</a></li>\n\t\t\t\t\t<li><a (click)=\"todoStore.setVisibility('completed')\" [ng-class]=\"{ selected: todoStore.visibility == 'completed' }\">Completed</a></li>\n\t\t\t\t\t<li><a (click)=\"todoStore.sort()\">Sort</a></li>\t\t\t\t\t\n\t\t\t\t</ul>\n\n\t\t\t\t<button class=\"clear-completed\" *ng-if=\"todoStore.getCompleted().length > 0\" (click)=\"removeCompleted()\">Clear completed</button>\n\t\t\t</footer>\n\t\t</section>\n\t"
+            selector: 'how-to-use',
+            template: tpl
         }),
-        __metadata("design:paramtypes", [store_1.TodoStore])
-    ], TodoAppComponent);
-    return TodoAppComponent;
+        __metadata("design:paramtypes", [])
+    ], HowToUseComponent);
+    return HowToUseComponent;
 }());
-exports.TodoAppComponent = TodoAppComponent;
+exports.HowToUseComponent = HowToUseComponent;
+
+
+/***/ }),
+
+/***/ 103:
+/***/ (function(module, exports) {
+
+module.exports = "<h3 id=\"1-\">1. &#x6570;&#x636E;&#x7ED1;&#x5B9A;:</h3>\n<p><hello-world class=\"hljs\"></hello-world></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;hello-world&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt; {{ message }} &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> HelloWorldComponent {\n    message = <span class=\"hljs-string\">&apos;hello tiny-ng&apos;</span>;\n}\n\n</pre>\n<h3 id=\"2-\">2. &#x53CC;&#x5411;&#x7ED1;&#x5B9A;:</h3>\n<p><two-way-binding class=\"hljs\"></two-way-binding></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\">\n<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-keyword\">const</span> template = <span class=\"hljs-string\">`\n    &lt;div&gt;\n        &lt;p&gt;First name: &lt;input [(ng-model)]=&quot;firstName&quot; /&gt;&lt;/p&gt;\n        &lt;p&gt;Last name: &lt;input [(ng-model)]=&quot;lastName&quot; /&gt;&lt;/p&gt;\n        &lt;h2&gt;Hello, {{ fullName }}!&lt;/h2&gt;\n    &lt;/div&gt;\n`</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;two-way-binding&apos;</span>,\n    template: template\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> TwoWayBindingComponent {\n    firstName = <span class=\"hljs-string\">&apos;Planet&apos;</span>;\n    lastName = <span class=\"hljs-string\">&apos;Earth&apos;</span>;\n\n    <span class=\"hljs-keyword\">get</span> fullName(): <span class=\"hljs-built_in\">string</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">`<span class=\"hljs-subst\">${ this.firstName }</span>  <span class=\"hljs-subst\">${ this.lastName }</span>`</span>;\n    }\n}\n\n</pre>\n<h3 id=\"3-\">3. &#x5904;&#x7406;&#x7528;&#x6237;&#x8F93;&#x5165;:</h3>\n<p><click-counter class=\"hljs\"></click-counter></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;click-counter&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt;You&apos;ve clicked {{ count }} times&lt;/div&gt;\n            {{ isClickTooManyTimes() }}\n        &lt;button\n            (click)=&quot;addCount()&quot;\n            [disabled]=&quot;isClickTooManyTimes()&quot;&gt;\n            Click me\n        &lt;/button&gt; \n        &lt;div [visible]=&quot;isClickTooManyTimes&quot;&gt;\n        That&apos;s too many clicks! Please stop before you wear out your fingers.\n        &lt;button (click)=&quot;resetCount()&quot;&gt;Reset clicks&lt;/button&gt;\n        &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ClickCounterComponent {\n    count: <span class=\"hljs-built_in\">number</span> = <span class=\"hljs-number\">0</span>;\n    addCount(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.count += <span class=\"hljs-number\">1</span>;\n    }\n    resetCount(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.count = <span class=\"hljs-number\">0</span>;\n    }\n    isClickTooManyTimes(): <span class=\"hljs-built_in\">boolean</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.count &gt;= <span class=\"hljs-number\">3</span>;\n    }\n}\n\n</pre>\n";
+
+/***/ }),
+
+/***/ 96:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 苟且!
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+var component_1 = __webpack_require__(97);
+var moduleConfig = {
+    declarations: [
+        component_1.HelloWorldComponent,
+        component_1.TwoWayBindingComponent,
+        component_1.ClickCounterComponent,
+        component_1.ListComponent,
+        component_1.HowToUseComponent
+    ],
+    entry: 'how-to-use'
+};
+var appModule = new tiny_ng_1.Module(moduleConfig);
+tiny_ng_1.bootstrap(appModule);
+
+
+/***/ }),
+
+/***/ 97:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var hello_world_component_1 = __webpack_require__(98);
+exports.HelloWorldComponent = hello_world_component_1.HelloWorldComponent;
+var two_way_binding_component_1 = __webpack_require__(99);
+exports.TwoWayBindingComponent = two_way_binding_component_1.TwoWayBindingComponent;
+var click_counter_component_1 = __webpack_require__(100);
+exports.ClickCounterComponent = click_counter_component_1.ClickCounterComponent;
+var list_component_1 = __webpack_require__(101);
+exports.ListComponent = list_component_1.ListComponent;
+var how_to_use_component_1 = __webpack_require__(102);
+exports.HowToUseComponent = how_to_use_component_1.HowToUseComponent;
+
+
+/***/ }),
+
+/***/ 98:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+var HelloWorldComponent = /** @class */ (function () {
+    function HelloWorldComponent() {
+        this.message = 'hello tiny-ng';
+    }
+    HelloWorldComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'hello-world',
+            template: "\n\t\t<div> {{ message }} </div>\n\t"
+        })
+    ], HelloWorldComponent);
+    return HelloWorldComponent;
+}());
+exports.HelloWorldComponent = HelloWorldComponent;
+
+
+/***/ }),
+
+/***/ 99:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+var template = "\n\t<div>\n\t\t<p>First name: <input [(ng-model)]=\"firstName\" /></p>\n\t\t<p>Last name: <input [(ng-model)]=\"lastName\" /></p>\n\t\t<h2>Hello, {{ fullName }}!</h2>\n\t</div>\n";
+var TwoWayBindingComponent = /** @class */ (function () {
+    function TwoWayBindingComponent() {
+        this.firstName = 'Planet';
+        this.lastName = 'Earth';
+    }
+    Object.defineProperty(TwoWayBindingComponent.prototype, "fullName", {
+        get: function () {
+            return this.firstName + "  " + this.lastName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TwoWayBindingComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'two-way-binding',
+            template: template
+        })
+    ], TwoWayBindingComponent);
+    return TwoWayBindingComponent;
+}());
+exports.TwoWayBindingComponent = TwoWayBindingComponent;
 
 
 /***/ })
