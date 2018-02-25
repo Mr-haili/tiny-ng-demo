@@ -108,7 +108,7 @@ var ClickCounterComponent = /** @class */ (function () {
     ClickCounterComponent = __decorate([
         tiny_ng_1.Component({
             selector: 'click-counter',
-            template: "\n\t\t<div>You've clicked {{ count }} times</div>\n\t\t\t{{ isClickTooManyTimes() }}\n\t\t<button\n\t\t\t(click)=\"addCount()\"\n\t\t\t[disabled]=\"isClickTooManyTimes()\">\n\t\t\tClick me\n\t\t</button> \n\t\t<div [visible]=\"isClickTooManyTimes\">\n\t    That's too many clicks! Please stop before you wear out your fingers.\n\t    <button (click)=\"resetCount()\">Reset clicks</button>\n\t\t</div>\n\t"
+            template: "\n\t\t<div>You've clicked {{ count }} times</div>\n\t\t\t{{ isClickTooManyTimes() }}\n\t\t<button\n\t\t\t(click)=\"addCount()\"\n\t\t\t[disabled]=\"isClickTooManyTimes()\">\n\t\t\tClick me\n\t\t</button> \n\t\t<div *ng-if=\"isClickTooManyTimes()\">\n\t    That's too many clicks! Please stop before you wear out your fingers.\n\t    <button (click)=\"resetCount()\">Reset clicks</button>\n\t\t</div>\n\t"
         })
     ], ClickCounterComponent);
     return ClickCounterComponent;
@@ -204,7 +204,100 @@ exports.HowToUseComponent = HowToUseComponent;
 /***/ 103:
 /***/ (function(module, exports) {
 
-module.exports = "<h3 id=\"1-\">1. &#x6570;&#x636E;&#x7ED1;&#x5B9A;:</h3>\n<p><hello-world class=\"hljs\"></hello-world></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;hello-world&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt; {{ message }} &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> HelloWorldComponent {\n    message = <span class=\"hljs-string\">&apos;hello tiny-ng&apos;</span>;\n}\n\n</pre>\n<h3 id=\"2-\">2. &#x53CC;&#x5411;&#x7ED1;&#x5B9A;:</h3>\n<p><two-way-binding class=\"hljs\"></two-way-binding></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\">\n<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-keyword\">const</span> template = <span class=\"hljs-string\">`\n    &lt;div&gt;\n        &lt;p&gt;First name: &lt;input [(ng-model)]=&quot;firstName&quot; /&gt;&lt;/p&gt;\n        &lt;p&gt;Last name: &lt;input [(ng-model)]=&quot;lastName&quot; /&gt;&lt;/p&gt;\n        &lt;h2&gt;Hello, {{ fullName }}!&lt;/h2&gt;\n    &lt;/div&gt;\n`</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;two-way-binding&apos;</span>,\n    template: template\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> TwoWayBindingComponent {\n    firstName = <span class=\"hljs-string\">&apos;Planet&apos;</span>;\n    lastName = <span class=\"hljs-string\">&apos;Earth&apos;</span>;\n\n    <span class=\"hljs-keyword\">get</span> fullName(): <span class=\"hljs-built_in\">string</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">`<span class=\"hljs-subst\">${ this.firstName }</span>  <span class=\"hljs-subst\">${ this.lastName }</span>`</span>;\n    }\n}\n\n</pre>\n<h3 id=\"3-\">3. &#x5904;&#x7406;&#x7528;&#x6237;&#x8F93;&#x5165;:</h3>\n<p><click-counter class=\"hljs\"></click-counter></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;click-counter&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt;You&apos;ve clicked {{ count }} times&lt;/div&gt;\n            {{ isClickTooManyTimes() }}\n        &lt;button\n            (click)=&quot;addCount()&quot;\n            [disabled]=&quot;isClickTooManyTimes()&quot;&gt;\n            Click me\n        &lt;/button&gt; \n        &lt;div [visible]=&quot;isClickTooManyTimes&quot;&gt;\n        That&apos;s too many clicks! Please stop before you wear out your fingers.\n        &lt;button (click)=&quot;resetCount()&quot;&gt;Reset clicks&lt;/button&gt;\n        &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ClickCounterComponent {\n    count: <span class=\"hljs-built_in\">number</span> = <span class=\"hljs-number\">0</span>;\n    addCount(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.count += <span class=\"hljs-number\">1</span>;\n    }\n    resetCount(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.count = <span class=\"hljs-number\">0</span>;\n    }\n    isClickTooManyTimes(): <span class=\"hljs-built_in\">boolean</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.count &gt;= <span class=\"hljs-number\">3</span>;\n    }\n}\n\n</pre>\n";
+module.exports = "<h3 id=\"1-\">1. &#x6570;&#x636E;&#x7ED1;&#x5B9A;:</h3>\n<p><hello-world class=\"hljs\"></hello-world></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;hello-world&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt; {{ message }} &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> HelloWorldComponent {\n    message = <span class=\"hljs-string\">&apos;hello tiny-ng&apos;</span>;\n}\n\n</pre>\n<h3 id=\"2-\">2. &#x53CC;&#x5411;&#x7ED1;&#x5B9A;:</h3>\n<p><two-way-binding class=\"hljs\"></two-way-binding></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\">\n<span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-keyword\">const</span> template = <span class=\"hljs-string\">`\n    &lt;div&gt;\n        &lt;p&gt;First name: &lt;input [(ng-model)]=&quot;firstName&quot; /&gt;&lt;/p&gt;\n        &lt;p&gt;Last name: &lt;input [(ng-model)]=&quot;lastName&quot; /&gt;&lt;/p&gt;\n        &lt;h2&gt;Hello, {{ fullName }}!&lt;/h2&gt;\n    &lt;/div&gt;\n`</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;two-way-binding&apos;</span>,\n    template: template\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> TwoWayBindingComponent {\n    firstName = <span class=\"hljs-string\">&apos;Planet&apos;</span>;\n    lastName = <span class=\"hljs-string\">&apos;Earth&apos;</span>;\n\n    <span class=\"hljs-keyword\">get</span> fullName(): <span class=\"hljs-built_in\">string</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">`<span class=\"hljs-subst\">${ this.firstName }</span>  <span class=\"hljs-subst\">${ this.lastName }</span>`</span>;\n    }\n}\n\n</pre>\n<h3 id=\"3-\">3. &#x5904;&#x7406;&#x7528;&#x6237;&#x8F93;&#x5165;:</h3>\n<p><word-reverse class=\"hljs\"></word-reverse></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;word-reverse&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt; {{ message }} &lt;/div&gt;\n        &lt;button (click)=&quot;reverse()&quot;&gt;&#x9006;&#x8F6C;&#x6D88;&#x606F;&lt;/button&gt;        \n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> WordReverseComponent {\n    message = <span class=\"hljs-string\">&apos;hello tiny-ng&apos;</span>;\n    reverse(){\n        <span class=\"hljs-keyword\">this</span>.message = <span class=\"hljs-keyword\">this</span>.message.split(<span class=\"hljs-string\">&apos;&apos;</span>).reverse().join(<span class=\"hljs-string\">&apos;&apos;</span>);\n    }\n}\n\n</pre>\n<h3 id=\"4-\">4. &#x6761;&#x4EF6;&#x6E32;&#x67D3;:</h3>\n<if class=\"hljs\"></if>\n\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;if&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;p *ng-if=&quot;true&quot;&gt; &#x4F60;&#x5728;&#x770B;&#x6211; &lt;/p&gt;\n        &lt;p *ng-if=&quot;false&quot;&gt; &#x4F60;&#x770B;&#x4E0D;&#x89C1;&#x6211; &lt;/p&gt;        \n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> IfComponent { }\n\n</pre>\n<h3 id=\"5-\">5. &#x5217;&#x8868;&#x6E32;&#x67D3;:</h3>\n<p><simple-list class=\"hljs\"></simple-list></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-keyword\">interface</span> Item { text: <span class=\"hljs-built_in\">string</span> };\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;simple-list&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div *ng-for=&quot;let item of items&quot;&gt;\n            {{ item }}\n        &lt;/div\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> SimpleListComponent {\n    items: <span class=\"hljs-built_in\">string</span>[] = [<span class=\"hljs-string\">&apos;hello world&apos;</span>, <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>, <span class=\"hljs-string\">&apos;aaa&apos;</span>];\n}\n\n</pre>\n<h3 id=\"6-\">6. &#x7A0D;&#x5FAE;&#x590D;&#x6742;&#x70B9;&#x7684;&#x7528;&#x6237;&#x8F93;&#x5165;:</h3>\n<p><click-counter class=\"hljs\"></click-counter></p>\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;click-counter&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt;You&apos;ve clicked {{ count }} times&lt;/div&gt;\n            {{ isClickTooManyTimes() }}\n        &lt;button\n            (click)=&quot;addCount()&quot;\n            [disabled]=&quot;isClickTooManyTimes()&quot;&gt;\n            Click me\n        &lt;/button&gt; \n        &lt;div *ng-if=&quot;isClickTooManyTimes()&quot;&gt;\n        That&apos;s too many clicks! Please stop before you wear out your fingers.\n        &lt;button (click)=&quot;resetCount()&quot;&gt;Reset clicks&lt;/button&gt;\n        &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ClickCounterComponent {\n    count: <span class=\"hljs-built_in\">number</span> = <span class=\"hljs-number\">0</span>;\n    addCount(): <span class=\"hljs-built_in\">void</span> { \n        <span class=\"hljs-keyword\">this</span>.count += <span class=\"hljs-number\">1</span>; \n    }\n    resetCount(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.count = <span class=\"hljs-number\">0</span>;\n    }\n    isClickTooManyTimes(): <span class=\"hljs-built_in\">boolean</span> {\n        <span class=\"hljs-keyword\">return</span> <span class=\"hljs-keyword\">this</span>.count &gt;= <span class=\"hljs-number\">3</span>;\n    }\n}\n\n</pre>\n<h3 id=\"7-\">7. &#x590D;&#x6742;&#x4E00;&#x70B9;&#x7684;&#x5217;&#x8868;&#x6E32;&#x67D3;:</h3>\n<list class=\"hljs\"></list>\n\n<h4 id=\"source-\">source:</h4>\n<pre class=\"hljs\"><span class=\"hljs-keyword\">import</span> { Component } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;tiny-ng&apos;</span>;\n<span class=\"hljs-keyword\">interface</span> Item { text: <span class=\"hljs-built_in\">string</span> };\n<span class=\"hljs-meta\">@Component</span>({\n    selector: <span class=\"hljs-string\">&apos;list&apos;</span>,\n    template: <span class=\"hljs-string\">`\n        &lt;div&gt;\n            Add item: &lt;input type=&quot;text&quot; [(ng-model)]=&quot;newItem.text&quot; /&gt;\n            &lt;button type=&quot;submit&quot; [disabled]=&quot;!newItem || !newItem.text.length&quot; (click)=&quot;addItem()&quot;&gt;\n                Add\n            &lt;/button&gt;\n        &lt;/div&gt;\n        &lt;p&gt;Your values:&lt;/p&gt;\n        &lt;ul&gt;\n            &lt;li\n                *ng-for=&quot;let item of items&quot;\n                (click)=&quot;selectedItem = item&quot;&gt;\n                {{ item.text }}\n                &lt;button (click)=&quot;removeItem(item)&quot;&gt;x&lt;/button&gt;\n            &lt;/li&gt;\n        &lt;/ul&gt;\n\n        &lt;div&gt;\n            &lt;button (click)=&quot;sort()&quot; [enable]=&quot;items.length &gt; 1&quot;&gt;Sort&lt;/button&gt;\n        &lt;/div&gt;\n    `</span>\n})\n<span class=\"hljs-keyword\">export</span> <span class=\"hljs-keyword\">class</span> ListComponent {\n    newItem: Item = { text: <span class=\"hljs-string\">&apos;&apos;</span> };\n    items: Item[] = [\n        { text: <span class=\"hljs-string\">&apos;tiny-ng&apos;</span> },\n        { text: <span class=\"hljs-string\">&apos;just for fun&apos;</span> }\n    ];\n    addItem(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">const</span> item = <span class=\"hljs-keyword\">this</span>.newItem;\n        <span class=\"hljs-keyword\">this</span>.items.push(item);\n        <span class=\"hljs-keyword\">this</span>.newItem = { text: <span class=\"hljs-string\">&apos;&apos;</span> };\n    }\n    removeItem(item: Item): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">const</span> index = <span class=\"hljs-keyword\">this</span>.items.indexOf(item);\n        <span class=\"hljs-keyword\">this</span>.items.splice(index, <span class=\"hljs-number\">1</span>);\n    }\n    sort(): <span class=\"hljs-built_in\">void</span> {\n        <span class=\"hljs-keyword\">this</span>.items.sort(<span class=\"hljs-function\">(<span class=\"hljs-params\">itemA, itemB</span>) =&gt;</span> itemA.text &gt; itemB.text ? <span class=\"hljs-number\">1</span> : <span class=\"hljs-number\">-1</span>);\n    }\n}\n\n</pre>\n";
+
+/***/ }),
+
+/***/ 104:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+var IfComponent = /** @class */ (function () {
+    function IfComponent() {
+    }
+    IfComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'if',
+            template: "\n\t\t<p *ng-if=\"true\"> \u4F60\u5728\u770B\u6211 </p>\n\t\t<p *ng-if=\"false\"> \u4F60\u770B\u4E0D\u89C1\u6211 </p>\t\t\n\t"
+        })
+    ], IfComponent);
+    return IfComponent;
+}());
+exports.IfComponent = IfComponent;
+
+
+/***/ }),
+
+/***/ 105:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+;
+var SimpleListComponent = /** @class */ (function () {
+    function SimpleListComponent() {
+        this.items = ['hello world', 'tiny-ng', 'aaa'];
+    }
+    SimpleListComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'simple-list',
+            template: "\n\t\t<div *ng-for=\"let item of items\">\n\t\t\t{{ item }}\n\t\t</div\n\t"
+        })
+    ], SimpleListComponent);
+    return SimpleListComponent;
+}());
+exports.SimpleListComponent = SimpleListComponent;
+
+
+/***/ }),
+
+/***/ 106:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var tiny_ng_1 = __webpack_require__(0);
+var WordReverseComponent = /** @class */ (function () {
+    function WordReverseComponent() {
+        this.message = 'hello tiny-ng';
+    }
+    WordReverseComponent.prototype.reverse = function () {
+        this.message = this.message.split('').reverse().join('');
+    };
+    WordReverseComponent = __decorate([
+        tiny_ng_1.Component({
+            selector: 'word-reverse',
+            template: "\n\t\t<div> {{ message }} </div>\n\t\t<button (click)=\"reverse()\">\u9006\u8F6C\u6D88\u606F</button>\t\t\n\t"
+        })
+    ], WordReverseComponent);
+    return WordReverseComponent;
+}());
+exports.WordReverseComponent = WordReverseComponent;
+
 
 /***/ }),
 
@@ -213,7 +306,6 @@ module.exports = "<h3 id=\"1-\">1. &#x6570;&#x636E;&#x7ED1;&#x5B9A;:</h3>\n<p><h
 
 "use strict";
 
-// 苟且!
 Object.defineProperty(exports, "__esModule", { value: true });
 var tiny_ng_1 = __webpack_require__(0);
 var component_1 = __webpack_require__(97);
@@ -221,6 +313,9 @@ var moduleConfig = {
     declarations: [
         component_1.HelloWorldComponent,
         component_1.TwoWayBindingComponent,
+        component_1.WordReverseComponent,
+        component_1.IfComponent,
+        component_1.SimpleListComponent,
         component_1.ClickCounterComponent,
         component_1.ListComponent,
         component_1.HowToUseComponent
@@ -243,6 +338,12 @@ var hello_world_component_1 = __webpack_require__(98);
 exports.HelloWorldComponent = hello_world_component_1.HelloWorldComponent;
 var two_way_binding_component_1 = __webpack_require__(99);
 exports.TwoWayBindingComponent = two_way_binding_component_1.TwoWayBindingComponent;
+var word_reverse_component_1 = __webpack_require__(106);
+exports.WordReverseComponent = word_reverse_component_1.WordReverseComponent;
+var if_component_1 = __webpack_require__(104);
+exports.IfComponent = if_component_1.IfComponent;
+var simple_list_component_1 = __webpack_require__(105);
+exports.SimpleListComponent = simple_list_component_1.SimpleListComponent;
 var click_counter_component_1 = __webpack_require__(100);
 exports.ClickCounterComponent = click_counter_component_1.ClickCounterComponent;
 var list_component_1 = __webpack_require__(101);

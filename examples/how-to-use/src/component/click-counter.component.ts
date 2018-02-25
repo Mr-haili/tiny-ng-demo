@@ -9,7 +9,7 @@ import { Component } from 'tiny-ng';
 			[disabled]="isClickTooManyTimes()">
 			Click me
 		</button> 
-		<div [visible]="isClickTooManyTimes">
+		<div *ng-if="isClickTooManyTimes()">
 	    That's too many clicks! Please stop before you wear out your fingers.
 	    <button (click)="resetCount()">Reset clicks</button>
 		</div>
@@ -17,8 +17,8 @@ import { Component } from 'tiny-ng';
 })
 export class ClickCounterComponent {
 	count: number = 0;
-	addCount(): void {
-		this.count += 1;
+	addCount(): void { 
+		this.count += 1; 
 	}
 	resetCount(): void {
 		this.count = 0;

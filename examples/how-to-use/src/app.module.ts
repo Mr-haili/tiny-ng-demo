@@ -1,11 +1,11 @@
-// 苟且!
-
-
 import { bootstrap, Module, ModuleConfig } from 'tiny-ng';
 import {
 	HelloWorldComponent,
 	TwoWayBindingComponent,
-	ClickCounterComponent,
+	WordReverseComponent,
+	IfComponent,
+	SimpleListComponent,
+	ClickCounterComponent,	
 	ListComponent,
 	HowToUseComponent
 } from './component';
@@ -14,6 +14,9 @@ const moduleConfig: ModuleConfig = {
   declarations: [
 		HelloWorldComponent,
 		TwoWayBindingComponent,
+		WordReverseComponent,
+		IfComponent,
+		SimpleListComponent,
 		ClickCounterComponent,
 		ListComponent,
 		HowToUseComponent
