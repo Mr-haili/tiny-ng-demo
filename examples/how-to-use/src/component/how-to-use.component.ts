@@ -8,7 +8,7 @@ declare var require: {
 
 let tpl: string;
 tpl = require("../how-to-use.md");
-tpl = tpl.replace('{{', '&#123;<span></span>&#123;').replace('}}', '&#125;&#125;')
+tpl = tpl.replace(/{{/g, '&#123;<span></span>&#123;').replace('}}', '&#125;&#125;')
 
 @Component({
 	selector: 'how-to-use',

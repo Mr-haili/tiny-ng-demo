@@ -183,7 +183,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tiny_ng_1 = __webpack_require__(0);
 var tpl;
 tpl = __webpack_require__(103);
-tpl = tpl.replace('{{', '&#123;<span></span>&#123;').replace('}}', '&#125;&#125;');
+tpl = tpl.replace(/{{/g, '&#123;<span></span>&#123;').replace('}}', '&#125;&#125;');
 var HowToUseComponent = /** @class */ (function () {
     function HowToUseComponent() {
     }
