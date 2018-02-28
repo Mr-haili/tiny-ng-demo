@@ -20,10 +20,9 @@ import { TodoStore, Todo } from './services/store';
 				<input
 					class="toggle-all"
 					type="checkbox"
-					#toggleall
 					*ng-if="todoStore.todos.length"
 					[checked]="todoStore.allCompleted()"
-					(click)="todoStore.setAllTo(toggleall.checked)">
+					(click)="todoStore.setAllTo(!todoStore.allCompleted())">
 
 				<ul class="todo-list">
 					<li
